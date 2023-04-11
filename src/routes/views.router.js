@@ -7,6 +7,7 @@ const courseService = new CourseService();
 
 const router = Router();
 
+//TODO proteger estas vistas
 router.get('/',async(req,res)=>{
     let students = await studentService.getAll();
     console.log(students);
