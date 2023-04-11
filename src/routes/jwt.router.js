@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {isValidPassword, generateJWToken} from '../util.js';
+import {isValidPassword, generateJWToken, createHash} from '../util.js';
 //Service import
 import StudentService from '../services/db/students.service.js';
 
@@ -42,5 +42,24 @@ router.post("/login", async (req, res)=>{
 });
 
 //TODO: agregar metodo de registrar estudiante:
+router.post("/register",  async (req, res)=>{
+    const { name, lastName, email, age, password} = req.body;
+    console.log("Registrando usuario:");
+    console.log(req.body);
+
+    const exists = await studentService.findByUsername(email);
+    if (exists){
+        return res.status(400).send({status: "error", message: "Usuario ya existe."});
+    }
+    const user = {
+        name,
+        lastName,
+        email,
+        age,
+        password: createHash(password)
+    };
+    const result = await studentService.save(user);
+    res.status(201).send({status: "success", message: "Usuario creado con extito con ID: " + result.id});
+});
 
 export default router;
