@@ -14,6 +14,17 @@ export default class StudentService {
         return result;
     }
 
-    //TODO agregar metodo findByUsername or email...
+    findByUsername = async (username) => {
+        const result = await studentsModel.findOne({email: username});
+        return result;
+    };
+
+    update = async (filter, value) => {
+        console.log("Update student with filter and value:");
+        console.log(filter);
+        console.log(value);
+        let result = await studentsModel.updateOne(filter, value);
+        return result;
+    }
 }
 

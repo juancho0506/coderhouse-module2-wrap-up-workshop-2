@@ -17,7 +17,14 @@ const stringTypeSchemaNonUniqueRequired = {
 const studentSchema = new mongoose.Schema({
     name: stringTypeSchemaNonUniqueRequired,
     lastName: stringTypeSchemaNonUniqueRequired,
+    email: stringTypeSchemaUniqueRequired,
     age: stringTypeSchemaNonUniqueRequired,
+    password: stringTypeSchemaNonUniqueRequired,
+    role: {
+        type: String,
+        default: 'user',
+        enum: ['user', 'admin'],
+    },
     courses: {
         type: [
             {

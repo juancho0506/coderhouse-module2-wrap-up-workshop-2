@@ -13,6 +13,8 @@ import passport from 'passport';
 import studentRouter from './routes/students.router.js'
 import coursesRouter from './routes/courses.router.js'
 import viewsRouter from "./routes/views.router.js";
+import usersViewRouter from './routes/users.view.router.js'
+import jwtRouter from './routes/jwt.router.js'
 
 //Declarando Express para usar sus funciones.
 const app = express();
@@ -38,6 +40,8 @@ app.use(express.static(__dirname+'/public'))
 app.use('/',viewsRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/courses", coursesRouter);
+app.use("/users", usersViewRouter);
+app.use("/api/jwt", jwtRouter);
 
 const SERVER_PORT = 9090;
 app.listen(SERVER_PORT, () => {
