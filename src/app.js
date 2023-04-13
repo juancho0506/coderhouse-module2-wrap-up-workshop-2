@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 //Passport imports
 import passport from 'passport';
-//TODO: Add your passport config path file.
+import initializePassport from './config/passport.config.js';
 
 
 //Routers a importar:
@@ -31,10 +31,11 @@ app.set('views',__dirname+'/views');
 app.set('view engine','handlebars');
 app.use(express.static(__dirname+'/public'))
 
-//TODO (Solo si usar Cookies): inicializar el cookie parser.
-
-//TODO: Inicializar passport:
-
+//(Solo si usar Cookies): inicializar el cookie parser.
+app.use(cookieParser("CoderS3cr3tC0d3"));
+//Inicializar passport:
+initializePassport();
+app.use(passport.initialize());
 
 //Declaración de Routers:
 app.use('/',viewsRouter);

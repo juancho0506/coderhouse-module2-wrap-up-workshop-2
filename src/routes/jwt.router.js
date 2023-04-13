@@ -30,7 +30,7 @@ router.post("/login", async (req, res)=>{
         console.log(access_token);
         //Con Cookie
         res.cookie('jwtCookieToken', access_token, {
-            maxAge: 60000,
+            maxAge: 120000,
             httpOnly: true
         });
         res.send({message: "Login successful!"});
@@ -41,7 +41,7 @@ router.post("/login", async (req, res)=>{
     }
 });
 
-//TODO: agregar metodo de registrar estudiante:
+//Agregar metodo de registrar estudiante:
 router.post("/register",  async (req, res)=>{
     const { name, lastName, email, age, password} = req.body;
     console.log("Registrando usuario:");
@@ -49,7 +49,7 @@ router.post("/register",  async (req, res)=>{
 
     const exists = await studentService.findByUsername(email);
     if (exists){
-        return res.status(400).send({status: "error", message: "Usuario ya existe."});
+        return res.status(401).send({status: "error", message: "Usuario ya existe."});
     }
     const user = {
         name,

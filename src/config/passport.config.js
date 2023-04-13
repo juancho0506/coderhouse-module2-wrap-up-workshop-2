@@ -1,12 +1,12 @@
 import passport from "passport";
 //Para usar JWT como estrategia.
 import jwtStrategy from 'passport-jwt'
+import { PRIVATE_KEY } from "../util.js";
 
 const JwtStrategy = jwtStrategy.Strategy;
 const ExtractJWT = jwtStrategy.ExtractJwt;
 
 const initializePassport = () => {
-    //TODO generar las reglas para extraer el token y las autorizaciones necesarias.
     //Estrategia de obtener Token JWT por Cookie:
     passport.use('jwt', new JwtStrategy(
         {
