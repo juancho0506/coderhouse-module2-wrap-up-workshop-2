@@ -1,10 +1,13 @@
 import { Router } from 'express';
 //import del service para Students. (Se puede probar con el service del file system o el de mongoose)
 //import StudentService from '../services/filesystem/students.service.js';
-import StudentService from '../services/db/students.service.js';
+import PersistenceFactory from '../services/factory.js';
 
 const router = Router();
-const studentService = new StudentService();
+const persistenceFactory = new PersistenceFactory();
+console.log(persistenceFactory);
+const studentService = persistenceFactory.createUserService();
+console.log(studentService);
 
 router.get('/',async(req,res)=>{
     try {

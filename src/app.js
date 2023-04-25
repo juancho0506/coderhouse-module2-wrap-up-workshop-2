@@ -1,20 +1,22 @@
 import express from 'express';
 import __dirname from './util.js';
 import handlebars from 'express-handlebars';
-import mongoose from 'mongoose';
+
 //Cookies si aplica:
 import cookieParser from 'cookie-parser';
 //Passport imports
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+import config from './config/config.js';
+import cors from 'cors';
 
 
 //Routers a importar:
 import studentRouter from './routes/students.router.js'
-import coursesRouter from './routes/courses.router.js'
-import viewsRouter from "./routes/views.router.js";
-import usersViewRouter from './routes/users.view.router.js'
-import jwtRouter from './routes/jwt.router.js'
+//import coursesRouter from './routes/courses.router.js'
+//import viewsRouter from "./routes/views.router.js";
+//import usersViewRouter from './routes/users.view.router.js'
+//import jwtRouter from './routes/jwt.router.js'
 
 //Declarando Express para usar sus funciones.
 const app = express();
@@ -22,6 +24,7 @@ const app = express();
 //Preparar la configuracion del servidor para recibir objetos JSON.
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cors());
 
 /**
  * Template engine
@@ -38,24 +41,21 @@ initializePassport();
 app.use(passport.initialize());
 
 //Declaración de Routers:
-app.use('/',viewsRouter);
+//app.use('/',viewsRouter);
 app.use("/api/students", studentRouter);
-app.use("/api/courses", coursesRouter);
-app.use("/users", usersViewRouter);
-app.use("/api/jwt", jwtRouter);
+//app.use("/api/courses", coursesRouter);
+//app.use("/users", usersViewRouter);
+//app.use("/api/jwt", jwtRouter);
 
-const SERVER_PORT = 9090;
-app.listen(SERVER_PORT, () => {
-    console.log("Servidor escuchando por el puerto: " + SERVER_PORT);
+app.listen(config.port, () => {
+    console.log("Servidor escuchando por el puerto: " + config.port);
 });
 
-const connectMongoDB = async ()=>{
+/*const mongoInstance = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/colegio?retryWrites=true&w=majority');
-        console.log("Conectado con exito a MongoDB usando Moongose.");
+        await MongoSingleton.getInstance();
     } catch (error) {
-        console.error("No se pudo conectar a la BD usando Moongose: " + error);
-        process.exit();
+        console.error(error);
     }
 };
-connectMongoDB();
+mongoInstance();*/

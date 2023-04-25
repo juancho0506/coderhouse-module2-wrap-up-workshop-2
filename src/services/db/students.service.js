@@ -1,6 +1,6 @@
 import studentsModel from "./models/students.js";
 
-export default class StudentService {
+export default class StudentServiceMongo {
     constructor() { 
         console.log("Working students with Database persistence in mongodb");
     }
