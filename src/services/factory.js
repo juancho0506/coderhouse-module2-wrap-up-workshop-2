@@ -4,7 +4,9 @@ import StudentServiceMongo from './db/students.service.js';
 import StudentServiceFileSystem from './filesystem/students.service.js';
 
 export default class PersistenceFactory{
-
+    constructor(){
+        console.log("Persistence Factory created!");
+    }
     createUserService() {
         //export let CourseService;
         console.log("Persistence in config: " + config.persistence);
@@ -20,7 +22,7 @@ export default class PersistenceFactory{
                         return studentService;
                     } catch (error) {
                         console.error(error);
-                        exit(0);
+                        process.exit(0);
                     }
                 };
                 mongoInstance();
@@ -33,14 +35,14 @@ export default class PersistenceFactory{
                         return studentService;
                     } catch (error) {
                         console.error(error);
-                        exit(0);
+                        process.exit(0);
                     }
                 };
                 filesInstance();
                 break;
             default:
                 console.error("Persistence provider not valid or not implemented!");
-                exit(0);
+                process.exit(0);
         }
     }
 };

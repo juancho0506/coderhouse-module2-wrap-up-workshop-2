@@ -2,6 +2,7 @@ import { Router } from 'express';
 //import del service para Students. (Se puede probar con el service del file system o el de mongoose)
 //import StudentService from '../services/filesystem/students.service.js';
 import PersistenceFactory from '../services/factory.js';
+import StudentsDto from '../services/dto/student.dto.js';
 
 const router = Router();
 const persistenceFactory = new PersistenceFactory();
@@ -22,7 +23,8 @@ router.get('/',async(req,res)=>{
 
 router.post('/',async(req,res)=>{
     try {
-        let result = await studentService.save(req.body);
+        const studentDto = new StudentsDto(req.body);
+        let result = await studentService.save(studentDto);
         res.status(201).send(result);
     } catch (error) {
         console.error(error);

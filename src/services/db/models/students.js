@@ -20,6 +20,9 @@ const studentSchema = new mongoose.Schema({
     email: stringTypeSchemaUniqueRequired,
     age: stringTypeSchemaNonUniqueRequired,
     password: stringTypeSchemaNonUniqueRequired,
+    fullName: {
+        type: String
+    },
     role: {
         type: String,
         default: 'user',
